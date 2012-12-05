@@ -9,7 +9,8 @@ a clearly structured XML report.
 If you connect a smartphone you need a rooted and insecure kernel/recovery installed on the smartphone.
 
 Example for connected smartphone:
-        adel.py -d device -l 4
+
+	adel.py -d device -l 4
 
 Example for database backups:
-        adel.py -d /home/user/backup -l 4
+	adel.py -d /home/user/backup -l 4
