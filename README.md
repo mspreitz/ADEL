@@ -13,4 +13,5 @@ Example for connected smartphone:
 	adel.py -d device -l 4
 
 Example for database backups:
+
 	adel.py -d /home/user/backup -l 4
