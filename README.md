@@ -5,10 +5,18 @@ This Python script dumps all important SQLite Databases from a connected Android
 
 If you connect a smartphone you need a rooted and insecure kernel or a custom recovery installed on the smartphone.
 
-Example for connected smartphone:
+ADEL needs a predefined configuration for each device to work proper. This configuration has to be added in the following file:
+
+    xml/phone_configs.xml
+
+As an example we added the configuration for the Samsung Galaxy S2 running Android 2.3.3, more phone configurations will follow.
+
+
+
+Example for the use of ADEL with a connected smartphone:
 
 	adel.py -d device -l 4
 
-Example for database backups:
+Example for the use of ADEL with database backups:
 
 	adel.py -d /home/user/backup -l 4
