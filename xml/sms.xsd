@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="SMS_Messages" type="SMS_MessagesType" />
+  <xsd:complexType name="SMS_MessagesType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="SMS_Message" type="SMS_MessageType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SMS_MessageType">
+    <xsd:sequence>
+      <xsd:element name="id" type="xsd:int" />
+      <xsd:element name="threat_id" type="xsd:int" />
+      <xsd:element name="number" type="xsd:decimal" />
+      <xsd:element name="person" type="xsd:string" />
+      <xsd:element name="date" type="xsd:dateTime" />
+      <xsd:element name="read" type="xsd:int" />
+      <xsd:element name="type" type="xsd:int" />
+      <xsd:element name="subject" type="xsd:string" />
+      <xsd:element name="body" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="report" type="reportType" />
+  <xsd:complexType name="reportType">
+    <xsd:sequence>
+      <xsd:element name="Calendar_Entries" type="Calendar_EntriesType" />
+      <xsd:element name="Call_Log_Entries" type="Call_Log_EntriesType" />
+      <xsd:element name="contacts" type="contactsType" />
+      <xsd:element name="smartphone_info" type="smartphone_infoType" />
+      <xsd:element name="SMS_Messages" type="SMS_MessagesType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SMS_MessagesType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="SMS_Message" type="SMS_MessageType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SMS_MessageType">
+    <xsd:sequence>
+      <xsd:element name="id" type="xsd:int" />
+      <xsd:element name="thread_id" type="xsd:int" />
+      <xsd:element name="number" type="xsd:decimal" />
+      <xsd:element name="person" type="xsd:string" />
+      <xsd:element name="date" type="xsd:dateTime" />
+      <xsd:element name="read" type="xsd:int" />
+      <xsd:element name="type" type="xsd:int" />
+      <xsd:element name="subject" type="xsd:string" />
+      <xsd:element name="body" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="smartphone_infoType">
+    <xsd:sequence>
+      <xsd:element name="account_name" type="xsd:string" />
+      <xsd:element name="account_type" type="xsd:string" />
+      <xsd:element name="imsi" type="xsd:decimal" />
+      <xsd:element name="imei" type="xsd:string" />
+      <xsd:element name="handheld_id" type="xsd:string" />
+      <xsd:element name="model" type="xsd:string" />
+      <xsd:element name="android_version" type="xsd:decimal" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="contactsType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="contact" type="contactType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="contactType">
+    <xsd:sequence>
+      <xsd:element name="id" type="xsd:int" />
+      <xsd:element name="photo_id" type="xsd:string" />
+      <xsd:element name="times_contacted" type="xsd:int" />
+      <xsd:element name="last_time_contacted" type="xsd:string" />
+      <xsd:element name="starred" type="xsd:int" />
+      <xsd:element name="number" type="xsd:string" />
+      <xsd:element name="display_name" type="xsd:string" />
+      <xsd:element name="lastname" type="xsd:string" />
+      <xsd:element name="firstname" type="xsd:string" />
+      <xsd:element name="company" type="xsd:string" />
+      <xsd:element name="email" type="xsd:string" />
+      <xsd:element name="url" type="xsd:string" />
+      <xsd:element name="address" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Call_Log_EntriesType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="Call_Log_Entry" type="Call_Log_EntryType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Call_Log_EntryType">
+    <xsd:sequence>
+      <xsd:element name="id" type="xsd:int" />
+      <xsd:element name="number" type="xsd:decimal" />
+      <xsd:element name="date" type="xsd:dateTime" />
+      <xsd:element name="duration" type="xsd:int" />
+      <xsd:element name="type" type="xsd:int" />
+      <xsd:element name="name" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Calendar_EntriesType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="Calendar_Entry" type="Calendar_EntryType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Calendar_EntryType">
+    <xsd:sequence>
+      <xsd:element name="id" type="xsd:int" />
+      <xsd:element name="calendarName" type="xsd:string" />
+      <xsd:element name="title" type="xsd:string" />
+      <xsd:element name="eventLocation" type="xsd:string" />
+      <xsd:element name="description" type="xsd:string" />
+      <xsd:element name="allDay" type="xsd:int" />
+      <xsd:element name="start" type="xsd:dateTime" />
+      <xsd:element name="end" type="xsd:dateTime" />
+      <xsd:element name="hasAlarm" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Twitter_EntriesType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="Tweet" type="TweetType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="TweetType">
+    <xsd:sequence>
+      <xsd:element name="Tweet_created" type="xsd:dateTime" />
+      <xsd:element name="Message" type="xsd:string" />
+      <xsd:element name="Source" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

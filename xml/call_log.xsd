@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="Call_Log_Entries" type="Call_Log_EntriesType" />
+  <xsd:complexType name="Call_Log_EntriesType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="Call_Log_Entry" type="Call_Log_EntryType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Call_Log_EntryType">
+    <xsd:sequence>
+      <xsd:element name="id" type="xsd:int" />
+      <xsd:element name="number" type="xsd:decimal" />
+      <xsd:element name="date" type="xsd:dateTime" />
+      <xsd:element name="duration" type="xsd:int" />
+      <xsd:element name="type" type="xsd:int" />
+      <xsd:element name="name" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

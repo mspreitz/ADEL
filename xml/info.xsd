@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="smartphone_info" type="smartphone_infoType" />
+  <xsd:complexType name="smartphone_infoType">
+    <xsd:sequence>
+      <xsd:element name="account_name" type="xsd:string" />
+      <xsd:element name="account_type" type="xsd:string" />
+      <xsd:element name="imsi" type="xsd:decimal" />
+      <xsd:element name="imei" type="xsd:string" />
+      <xsd:element name="handheld_id" type="xsd:string" />
+      <xsd:element name="model" type="xsd:string" />
+      <xsd:element name="android_version" type="xsd:decimal" />
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
