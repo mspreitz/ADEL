@@ -1,6 +1,5 @@
 #!/usr/bin/python
 #
-
 # Copyright (C) 2012 Michael Spreitzenbarth, Sven Schmitt
 #
 # This program is free software: you can redistribute it and/or modify
@@ -15,19 +14,15 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 from xml.dom.minidom import Document
 import re
-
 import _adel_log
-
 
 # Make pretty XML without linebreaks in the elements
 def make_pretty_xml(uglyXML):
     text_re = re.compile('>\n\s+([^<>\s].*?)\n\s+</', re.DOTALL)    
     prettyXml = text_re.sub('>\g<1></', uglyXML)
     return prettyXml
-
 
 # ContactsList = [[id, photo_id, times_contacted, last_time_contacted,
 # starred, number, display_name, lastname, firstname, company, 

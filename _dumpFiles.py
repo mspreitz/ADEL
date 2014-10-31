@@ -1,6 +1,5 @@
 #!/usr/bin/python
 #
-
 # Copyright (C) 2012 Michael Spreitzenbarth, Sven Schmitt
 #
 # This program is free software: you can redistribute it and/or modify
@@ -16,10 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
-import subprocess
-import hashlib
-
+import os, subprocess, hashlib
 import _adel_log
 
 # Get database files through the android SDK
@@ -36,7 +32,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         _adel_log.log("accounts.db -> " + accountdb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/accounts.db").hexdigest(), 3)
         hash_value.write("accounts.db -> " + hashlib.sha256(backup_dir + "/accounts.db").hexdigest() + " \n")
     except:
-        _adel_log.log("dumpDBs:       ----> accounts.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> accounts database doesn't exist!", 2)
     
     # Contacts database ()
     if os_version < 2.0:
@@ -49,7 +45,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         _adel_log.log(contactsdb_name + " -> " + contactsdb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/contacts2.db").hexdigest(), 3)
         hash_value.write(contactsdb_name + " -> " + hashlib.sha256(backup_dir + "/" + contactsdb_name).hexdigest() + " \n")
     except:
-        _adel_log.log("dumpDBs:       ----> contacts.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> contacts database doesn't exist!", 2)
     
     # MMS and SMS database ()
     try:
@@ -58,7 +54,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         _adel_log.log("mmssms.db -> " + smsdb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/mmssms.db").hexdigest(), 3)
         hash_value.write("mmssms.db -> " + hashlib.sha256(backup_dir + "/mmssms.db").hexdigest() + " \n")
     except:
-        _adel_log.log("dumpDBs:       ----> mmssms.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> mms/sms database doesn't exist!", 2)
     
     # Calendar database ()
     try:
@@ -67,7 +63,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         _adel_log.log("calendar.db -> " + calendardb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/calendar.db").hexdigest(), 3)
         hash_value.write("calendar.db -> " + hashlib.sha256(backup_dir + "/calendar.db").hexdigest() + " \n")
     except:
-        _adel_log.log("dumpDBs:       ----> calendar.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> calendar database doesn't exist!", 2)
     
     # Settings database ()
     try:
@@ -76,33 +72,33 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         _adel_log.log("settings.db -> " + settingsdb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/settings.db").hexdigest(), 3)
         hash_value.write("settings.db -> " + hashlib.sha256(backup_dir + "/settings.db").hexdigest() + " \n")
     except:
-        _adel_log.log("dumpDBs:       ----> settingsdb.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> settings database doesn't exist!", 2)
     
     # Location caches (cell & wifi)
-    try:
-        cachecell = subprocess.Popen(['adb', 'pull', '/data/data/com.google.android.location/files/cache.cell', backup_dir], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-        cachecell.wait()
-        _adel_log.log("chache.cell-> " + cachecell.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/chache.cell").hexdigest(), 3)
-        hash_value.write("chache.cell -> " + hashlib.sha256(backup_dir + "/chache.cell").hexdigest() + " \n")
-    except:
-        _adel_log.log("dumpDBs:       ----> chache.cell - cell cache doesn't exist!!", 2)
-    try:
-        cachewifi = subprocess.Popen(['adb', 'pull', '/data/data/com.google.android.location/files/cache.wifi', backup_dir], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-        cachewifi.wait()
-        _adel_log.log("chache.wifi-> " + cachewifi.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/chache.wifi").hexdigest(), 3)
-        hash_value.write("chache.wifi -> " + hashlib.sha256(backup_dir + "/chache.wifi").hexdigest() + " \n")
-    except:
-        _adel_log.log("dumpDBs:       ----> chache.wifi - wifi cache doesn't exist!!", 2)
+    if os_version < 2.3:
+        try:
+            cachecell = subprocess.Popen(['adb', 'pull', '/data/data/com.google.android.location/files/cache.cell', backup_dir], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+            cachecell.wait()
+            _adel_log.log("chache.cell-> " + cachecell.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/chache.cell").hexdigest(), 3)
+            hash_value.write("chache.cell -> " + hashlib.sha256(backup_dir + "/chache.cell").hexdigest() + " \n")
+        except:
+            _adel_log.log("dumpDBs:       ----> cell GPS cache doesn't exist!", 2)
+        try:
+            cachewifi = subprocess.Popen(['adb', 'pull', '/data/data/com.google.android.location/files/cache.wifi', backup_dir], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+            cachewifi.wait()
+            _adel_log.log("chache.wifi-> " + cachewifi.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/chache.wifi").hexdigest(), 3)
+            hash_value.write("chache.wifi -> " + hashlib.sha256(backup_dir + "/chache.wifi").hexdigest() + " \n")
+        except:
+            _adel_log.log("dumpDBs:       ----> wifi GPS cache doesn't exist!", 2)
 
     # Optional applications and databases ----> analyzing is not implemented right now
-
     # Downloaded data and apps database ()
     try:
         downloadsdb = subprocess.Popen(['adb', 'pull', '/data/data/com.android.providers.downloads/databases/downloads.db', backup_dir], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         downloadsdb.wait()
         _adel_log.log("downloads.db -> " + downloadsdb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/downloads.db").hexdigest(), 3)
     except:
-        _adel_log.log("dumpDBs:       ----> downloads.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> downloads database doesn't exist!", 2)
     
     # User dictionary database ()
     try:
@@ -110,14 +106,14 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         userdb.wait()
         _adel_log.log("user_dict.db -> " + userdb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/user_dict.db").hexdigest(), 3)
     except:
-        _adel_log.log("dumpDBs:       ----> user_dict.db doesn't exist!!", 2)    
+        _adel_log.log("dumpDBs:       ----> user dict doesn't exist!", 2)    
     # Phone database ()
     try:
         phonedb = subprocess.Popen(['adb', 'pull', '/data/data/com.android.providers.telephony/databases/telephony.db', backup_dir], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         phonedb.wait()
         _adel_log.log("telephony.db -> " + phonedb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/telephony.db").hexdigest(), 3)
     except:
-        _adel_log.log("dumpDBs:       ----> telephony.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> telephony database doesn't exist!", 2)
 
     # Automated dictionary database ()
     try:
@@ -125,7 +121,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         autodb.wait()
         _adel_log.log("auto_dict.db -> " + autodb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/auto_dict.db").hexdigest(), 3)
     except:
-        _adel_log.log("dumpDBs:       ----> auto_dict.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> auto dict doesn't exist!", 2)
 
     # Weather data database ()
     try:
@@ -133,13 +129,13 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         weatherdb.wait()
         _adel_log.log("weather.db -> " + weatherdb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/weather.db").hexdigest(), 3)
     except:
-        _adel_log.log("dumpDBs:       ----> weather.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> weather database doesn't exist!", 2)
     try:
         weatherdb = subprocess.Popen(['adb', 'pull', '/data/data/com.sec.android.widgetapp.weatherclock/databases/WeatherClock', backup_dir], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         weatherdb.wait()
         _adel_log.log("WeatherClock.db -> " + weatherdb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/WeatherClock.db").hexdigest(), 3)
     except:
-        _adel_log.log("dumpDBs:       ----> weather widget doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> weather widget doesn't exist!", 2)
 
     # Google-Mail programm database ()
     try:
@@ -147,7 +143,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         gmaildb.wait()
         _adel_log.log("gmail.db -> " + gmaildb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/gmail.db").hexdigest(), 3)
     except:
-        _adel_log.log("dumpDBs:       ----> gmail.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> gmail database doesn't exist!", 2)
 
     # Other Email Accounts than Gmail ()
     try:
@@ -155,7 +151,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         providerdb.wait()
         _adel_log.log("EmailProvider.db -> " + providerdb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/EmailProvider.db").hexdigest(), 3)
     except:
-        _adel_log.log("dumpDBs:       ----> EmailProvider.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> EmailProvider database doesn't exist!", 2)
 
     # Clock and alarms database ()
     try:
@@ -163,7 +159,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         alarmdb.wait()
         _adel_log.log("alarms.db -> " + alarmdb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/alarms.db").hexdigest(), 3)
     except:
-        _adel_log.log("dumpDBs:       ----> alarms.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> alarms database doesn't exist!", 2)
 
     # Twitter database ()
     try:
@@ -180,7 +176,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
             except:
                 continue
     except:
-        _adel_log.log("dumpDBs:       ----> twitter.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> twitter database doesn't exist!", 2)
 
     # Google-Talk database ()
     try:
@@ -188,7 +184,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         gtalkdb.wait()
         _adel_log.log("talk.db -> " + gtalkdb.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/talk.db").hexdigest(), 3)
     except:
-        _adel_log.log("dumpDBs:       ----> talk.db (Google-Talk) doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> Google-Talk database doesn't exist!", 2)
 
     # Search and download the Google-Mail mail database ()
     try:
@@ -203,7 +199,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
             else:
                 continue
     except:
-        _adel_log.log("dumpDBs:       ----> Google-Mail database doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> Google-Mail database doesn't exist!", 2)
 
     # Google+ database
     try:
@@ -220,7 +216,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
             except:
                 continue
     except:
-        _adel_log.log("dumpDBs:       ----> Google+ database doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> Google+ database doesn't exist!", 2)
 
     # Google-Maps database
     try:
@@ -229,7 +225,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
             maps_file_name.wait()
             _adel_log.log("da_destination_history -> " + maps_file_name.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "da_destination_history.db").hexdigest(), 3)
         except:
-            _adel_log.log("dumpDBs:       ----> Google-Maps navigation history doesn't exist!!", 2)
+            _adel_log.log("dumpDBs:       ----> Google-Maps navigation history doesn't exist!", 2)
         for i in range(6):
             try:
                 file_name = subprocess.Popen(['adb', 'shell', 'ls', '/data/data/com.google.android.apps.maps/databases/'], stdout=subprocess.PIPE).communicate(0)[0].split()[i]
@@ -243,7 +239,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
             except:
                 continue
     except:
-        _adel_log.log("dumpDBs:       ----> Google-Maps database doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> Google-Maps database doesn't exist!", 2)
 
     # Facebook database
     try:
@@ -251,7 +247,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         facebook.wait()
         _adel_log.log("fb.db -> " + facebook.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/fb.db").hexdigest(), 3)
     except:
-        _adel_log.log("dumpDBs:       ----> Facebook database doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> Facebook database doesn't exist!", 2)
 
     # Browser GPS database
     try:
@@ -259,7 +255,7 @@ def get_SQLite_files(backup_dir, os_version, device_name):
         browserGPS.wait()
         _adel_log.log("CachedGeoposition.db -> " + browserGPS.communicate(0)[1].split("(")[1].split(")")[0] + " -> " + hashlib.sha256(backup_dir + "/CachedGeoposition.db").hexdigest(), 3)
     except:
-        _adel_log.log("dumpDBs:       ----> CachedGeoposition.db (Browser) doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> Cached geopositions within browser don't exist!", 2)
 
     # Gesture Lock File
     try:
@@ -287,19 +283,30 @@ def get_SQLite_files(backup_dir, os_version, device_name):
             pictures = subprocess.Popen(['adb', 'pull', '/sdcard/DCIM/Camera/', picture_dir], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
             pictures.wait()
         except:
-            _adel_log.log("dumpDBs:       ----> No pictures on the internal SD-card found !!", 2)
+            _adel_log.log("dumpDBs:       ----> No pictures on the internal SD-card found!", 2)
+        try:
+            pictures = subprocess.Popen(['adb', 'pull', '/data/media/0/DCIM/Camera/', picture_dir], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+            pictures.wait()
+        except:
+            _adel_log.log("dumpDBs:       ----> No pictures on the internal SD-card (alternate path) found!", 2)
         try:
             _adel_log.log("dumpDBs:       ----> dumping pictures (external_sdcard)....", 0)
             pictures = subprocess.Popen(['adb', 'pull', '/sdcard/external_sd/DCIM/Camera/', picture_dir], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
             pictures.wait()
         except:
-            _adel_log.log("dumpDBs:       ----> No pictures on the external SD-card found !!", 2)
+            _adel_log.log("dumpDBs:       ----> No pictures on the external SD-card found!", 2)
         try:
             _adel_log.log("dumpDBs:       ----> dumping screen captures (internal_sdcard)....", 0)
             pictures = subprocess.Popen(['adb', 'pull', '/sdcard/ScreenCapture/', picture_dir], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
             pictures.wait()
         except:
-            _adel_log.log("dumpDBs:       ----> No screen captures on the internal SD-card found !!", 2)
+            _adel_log.log("dumpDBs:       ----> No screen captures on the internal SD-card found!", 2)
+        try:
+            _adel_log.log("dumpDBs:       ----> dumping screen captures (internal_sdcard)....", 0)
+            pictures = subprocess.Popen(['adb', 'pull', '/data/media/0/ScreenCapture/', picture_dir], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+            pictures.wait()
+        except:
+            _adel_log.log("dumpDBs:       ----> No screen captures on the internal SD-card (alternate path) found!", 2)
     hash_value.close()    
 
 
@@ -321,5 +328,5 @@ def get_twitter_sqlite_files(backup_dir, os_version):
             except:
                 continue
     except:
-        _adel_log.log("dumpDBs:       ----> twitter.db doesn't exist!!", 2)
+        _adel_log.log("dumpDBs:       ----> Twitter database doesn't exist!", 2)
     return twitterdbnamelist

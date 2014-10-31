@@ -29,11 +29,11 @@
 					<settings>
 						<settings_positions>
 							<id>2</id>
+							<imei>17</imei>
 						</settings_positions>
 					</settings>
 				</info3>
 			</smartphone_information>
-
 			<databases>
 				<sms>
 					<db_name>mmssms.db</db_name>
@@ -50,7 +50,6 @@
 						<body>11</body>
 					</sms_entry_positions>
 				</sms>
-
 				<call_logs>
 					<db_name>contacts2.db</db_name>
 					<table_num>15</table_num>
@@ -63,7 +62,6 @@
 						<name>6</name>
 					</call_log_entry_positions>
 				</call_logs>
-
 				<calendar>
 					<db_name>calendar.db</db_name>
 					<name_table>
@@ -88,7 +86,6 @@
 						</calendar_event_positions>
 					</events>
 				</calendar>
-
 				<contacts>
 					<db_name>contacts2.db</db_name>
 					<normal_contacts>
@@ -152,8 +149,303 @@
 				</contacts>
 			</databases>
 		</phone>
+		<phone device="emulator" model="sdk" os_version="442">
+			<smartphone_information>
+				<info1>
+					<db_name>accounts.db</db_name>
+					<accounts>
+						<table_num>1</table_num>
+						<accounts_positions>
+							<account_name>1</account_name>
+							<account_type>2</account_type>
+						</accounts_positions>
+					</accounts>
+				</info1>
+				<info2>
+					<db_name>accounts.db</db_name>
+					<meta>
+						<table_num>6</table_num>
+						<meta_positions>
+							<key>1</key>
+						</meta_positions>
+					</meta>
+				</info2>
+				<info3>
+					<db_name>settings.db</db_name>
+					<table_num>3</table_num>
+					<settings>
+						<settings_positions>
+							<id>2</id>
+							<imei>23</imei>
+						</settings_positions>
+					</settings>
+				</info3>
+			</smartphone_information>
+			<databases>
+				<sms>
+					<db_name>mmssms.db</db_name>
+					<table_num>7</table_num>
+					<sms_entry_positions> 
+						<id>0</id>
+						<thread_id>1</thread_id>
+						<address>2</address>
+						<person>3</person>
+						<date>4</date>
+						<read>7</read>
+						<type>9</type>
+						<subject>11</subject>
+						<body>12</body>
+					</sms_entry_positions>
+				</sms>
+				<call_logs>
+					<db_name>contacts2.db</db_name>
+					<table_num>23</table_num>
+					<call_log_entry_positions>
+						<id>0</id>
+						<number>1</number>
+						<date>3</date>
+						<duration>4</duration>
+						<type>5</type>
+						<new>6</new>
+						<name>7</name>
+					</call_log_entry_positions>
+				</call_logs>
+				<calendar>
+					<db_name>calendar.db</db_name>
+					<name_table>
+						<table_num>3</table_num>
+						<calendar_name_positions>
+							<id>0</id>
+							<name>10</name>
+						</calendar_name_positions>
+					</name_table>
+					<events>
+						<table_num>4</table_num>
+						<calendar_event_positions>
+							<id>0</id>
+							<calendar_id>9</calendar_id>
+							<title>11</title>
+							<eventLocation>12 </eventLocation>
+							<description>13</description>
+							<dtstart>17</dtstart>
+							<dtend>18</dtend>
+							<allDay>21</allDay>
+							<hasAlarm>24</hasAlarm>
+						</calendar_event_positions>
+					</events>
+				</calendar>
+				<contacts>
+					<db_name>contacts2.db</db_name>
+					<normal_contacts>
+						<table_num>6</table_num>
+						<contacts_positions>
+							<id>0</id>
+							<photo_id>2</photo_id>
+							<times_contacted>6</times_contacted>
+							<last_time_contacted>7</last_time_contacted>
+							<starred>8</starred>
+						</contacts_positions>
+					</normal_contacts>
+					<raw_contacts>
+						<table_num>8</table_num>
+						<raw_contacts_options>
+							<contact_id>7</contact_id>
+							<display_name>16</display_name>
+						</raw_contacts_options>
+						<raw_contacts_deleted_positions>
+							<id>0</id>
+							<deleted>7</deleted>
+							<times_contacted>12</times_contacted>
+							<last_time_contacted>13</last_time_contacted>
+							<starred>14</starred>
+							<display_name_alt>17</display_name_alt>
+						</raw_contacts_deleted_positions>
+					</raw_contacts>
+					<data> 
+						<table_num>14</table_num>
+						<data_entry_positions>
+							<mimetype_id>2</mimetype_id>
+							<raw_contact_id>3</raw_contact_id>
+							<data1>8</data1>
+							<data2>9</data2>
+							<data3>10</data3>
+							<data4>11</data4>
+							<data5>12</data5>
+							<data6>13</data6>
+							<data7>14</data7>
+							<data8>15</data8>
+							<data9>16</data9>
+							<data10>17</data10>
+							<data11>18</data11>
+							<data12>19</data12>
+							<data13>20</data13>
+							<data14>21</data14>
+							<data15>22</data15>
+						</data_entry_positions>
+					</data>
+					<mimetypes>
+						<table_num>13</table_num>
+						<mimetype_positions> 
+							<email_v2>1</email_v2>
+							<postal_address_v2>8</postal_address_v2>
+							<phone_v2>5</phone_v2>
+							<name>7</name>
+							<website>2</website>
+							<organization>4</organization>
+						</mimetype_positions>
+					</mimetypes>
+				</contacts>
+			</databases>
+		</phone>
+		<phone device="nexus4" model="Nexus 4" os_version="442">
+			<smartphone_information>
+				<info1>
+					<db_name>accounts.db</db_name>
+					<accounts>
+						<table_num>1</table_num>
+						<accounts_positions>
+							<account_name>1</account_name>
+							<account_type>2</account_type>
+						</accounts_positions>
+					</accounts>
+				</info1>
+				<info2>
+					<db_name>accounts.db</db_name>
+					<meta>
+						<table_num>6</table_num>
+						<meta_positions>
+							<key>1</key>
+						</meta_positions>
+					</meta>
+				</info2>
+				<info3>
+					<db_name>settings.db</db_name>
+					<table_num>3</table_num>
+					<settings>
+						<settings_positions>
+							<id>2</id>
+							<imei>23</imei>
+						</settings_positions>
+					</settings>
+				</info3>
+			</smartphone_information>
+			<databases>
+				<sms>
+					<db_name>mmssms.db</db_name>
+					<table_num>7</table_num>
+					<sms_entry_positions> 
+						<id>0</id>
+						<thread_id>1</thread_id>
+						<address>2</address>
+						<person>3</person>
+						<date>4</date>
+						<read>7</read>
+						<type>9</type>
+						<subject>11</subject>
+						<body>12</body>
+					</sms_entry_positions>
+				</sms>
+				<call_logs>
+					<db_name>contacts2.db</db_name>
+					<table_num>23</table_num>
+					<call_log_entry_positions>
+						<id>0</id>
+						<number>1</number>
+						<date>3</date>
+						<duration>4</duration>
+						<type>5</type>
+						<new>6</new>
+						<name>7</name>
+					</call_log_entry_positions>
+				</call_logs>
+				<calendar>
+					<db_name>calendar.db</db_name>
+					<name_table>
+						<table_num>4</table_num>
+						<calendar_name_positions>
+							<id>0</id>
+							<name>6</name>
+						</calendar_name_positions>
+					</name_table>
+					<events>
+						<table_num>5</table_num>
+						<calendar_event_positions>
+							<id>0</id>
+							<calendar_id>5</calendar_id>
+							<title>6</title>
+							<eventLocation>7</eventLocation>
+							<description>8</description>
+							<dtstart>13</dtstart>
+							<dtend>14</dtend>
+							<allDay>17</allDay>
+							<hasAlarm>20</hasAlarm>
+						</calendar_event_positions>
+					</events>
+				</calendar>
+				<contacts>
+					<db_name>contacts2.db</db_name>
+					<normal_contacts>
+						<table_num>6</table_num>
+						<contacts_positions>
+							<id>0</id>
+							<photo_id>2</photo_id>
+							<times_contacted>6</times_contacted>
+							<last_time_contacted>7</last_time_contacted>
+							<starred>8</starred>
+						</contacts_positions>
+					</normal_contacts>
+					<raw_contacts>
+						<table_num>8</table_num>
+						<raw_contacts_options>
+							<contact_id>7</contact_id>
+							<display_name>16</display_name>
+						</raw_contacts_options>
+						<raw_contacts_deleted_positions>
+							<id>0</id>
+							<deleted>7</deleted>
+							<times_contacted>12</times_contacted>
+							<last_time_contacted>13</last_time_contacted>
+							<starred>14</starred>
+							<display_name_alt>17</display_name_alt>
+						</raw_contacts_deleted_positions>
+					</raw_contacts>
+					<data> 
+						<table_num>14</table_num>
+						<data_entry_positions>
+							<mimetype_id>2</mimetype_id>
+							<raw_contact_id>3</raw_contact_id>
+							<data1>8</data1>
+							<data2>9</data2>
+							<data3>10</data3>
+							<data4>11</data4>
+							<data5>12</data5>
+							<data6>13</data6>
+							<data7>14</data7>
+							<data8>15</data8>
+							<data9>16</data9>
+							<data10>17</data10>
+							<data11>18</data11>
+							<data12>19</data12>
+							<data13>20</data13>
+							<data14>21</data14>
+							<data15>22</data15>
+						</data_entry_positions>
+					</data>
+					<mimetypes>
+						<table_num>13</table_num>
+						<mimetype_positions> 
+							<email_v2>1</email_v2>
+							<postal_address_v2>8</postal_address_v2>
+							<phone_v2>5</phone_v2>
+							<name>7</name>
+							<website>2</website>
+							<organization>4</organization>
+						</mimetype_positions>
+					</mimetypes>
+				</contacts>
+			</databases>
+		</phone>
 	</phones>
-
 	<apps>
 		<facebook>
 			<db_name>fb.db</db_name>

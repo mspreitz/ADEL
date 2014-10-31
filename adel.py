@@ -1,6 +1,5 @@
 #!/usr/bin/python
 #
-
 # Copyright (C) 2012 Michael Spreitzenbarth, Sven Schmitt
 #
 # This program is free software: you can redistribute it and/or modify
@@ -47,22 +46,8 @@ __authors__ = '"Michael Spreitzenbarth & Sven Schmitt" <firstname.lastname@cs.fa
 # 3 = log level 2 + normal messages
 # 4 = log level 3 + debug messages
 
-import os
-import subprocess
-import datetime
-import sys
-import shutil
-import argparse
-
-
-import _adel_log
-import  _analyzeDB
-import _dumpFiles
-import _createReport
-import _compareHashValues
-import _locationInformation
-import _getEXIF
-import _getGestureLock
+import os, subprocess, datetime, sys, shutil, argparse
+import _adel_log, _analyzeDB, _dumpFiles, _createReport, _compareHashValues, _locationInformation, _getEXIF, _getGestureLock
 from _processXmlConfig import PhoneConfig
 
 
@@ -82,14 +67,13 @@ def dumpDBs(file_dir, os_version, device_name):
 
 # analyzes the dumped databases
 def analyzeDBs(file_dir, os_version, xml_dir, device_name, os_version2):
-    config = PhoneConfig("xml/phone_configs.xml", device_name, os_version2) #TODO os_version2?
+    config = PhoneConfig("xml/phone_configs.xml", device_name, os_version2)
     # Call the analysis module
     _adel_log.log("analyzeDBs:    ----> starting to parse and analyze the databases....", 0)
     _analyzeDB.phone_info(file_dir, os_version, xml_dir, device_name, config)
     twitter_dbname_list = _dumpFiles.get_twitter_sqlite_files(file_dir, os_version)
     _analyzeDB.analyze(file_dir, os_version2, xml_dir, twitter_dbname_list, config)
     _adel_log.log("analyzeDBs:    ----> all databases parsed and analyzed....", 0)
-
     # Create report
     _adel_log.log("createReport:  ----> creating report....", 0)
     _createReport.report(xml_dir)
@@ -97,7 +81,7 @@ def analyzeDBs(file_dir, os_version, xml_dir, device_name, os_version2):
 
 
 # Gets GPS-Location out of files
-def get_location_information(backup_dir, device_name):
+def get_location_information(backup_dir, device_name, os_version):
     _adel_log.log("\n############  LOCATION INFORMATION  ############\n", 2)
     output_file = open(backup_dir + "/LocationInformation.log", 'a+')
     output_file.write(('%25s %6s %11s %11s %11s %5s \n' % ('key', 'accuracy', 'confidence', 'latitude', 'longitude', 'time')))
@@ -108,24 +92,27 @@ def get_location_information(backup_dir, device_name):
         picture_position_list = ""
     twitter_position_list = _locationInformation.get_location_information_twitter(backup_dir, output_file)
     gmaps_position_list = _locationInformation.get_location_information_gmaps(backup_dir, output_file)
-    cell_position_list = _locationInformation.get_location_information_cell(backup_dir, output_file)
-    wifi_position_list = _locationInformation.get_location_information_wifi(backup_dir, output_file)
+    if os_version < 2.3:
+        cell_position_list = _locationInformation.get_location_information_cell(backup_dir, output_file)
+        wifi_position_list = _locationInformation.get_location_information_wifi(backup_dir, output_file)
+    else:
+        cell_position_list = []
+        wifi_position_list = []
     browser_position_list = _locationInformation.get_location_information_browser(backup_dir, output_file)
-    _locationInformation.createMap(backup_dir, cell_position_list, wifi_position_list, picture_position_list, twitter_position_list, gmaps_position_list, browser_position_list)
+    _locationInformation.createMap(backup_dir, cell_position_list, wifi_position_list, picture_position_list, 
+        twitter_position_list, gmaps_position_list, browser_position_list)
     output_file.close()
 
 
 # The main function
 def run(argv):
     # Manual
-    usage = "\033[0;32m adel.py <device/backup_folder> <loglevel>\033[m The loglevel is an optional value."
+    usage = "\033[0;32m adel.py -d <device/backup_folder> -l <loglevel>\033[m"
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('-l', '--loglevel', default=4, const='4', nargs='?', help='The loglevel is an optional value between 0 (no logging) and 4 (full debug logging).')
     parser.add_argument('-d', '--device', default=False, nargs='?', help='Use the device name of the smartphone to load the correct config.')
     parser.add_argument('-db', '--database', default=False, nargs='?', help='Absolute path for already dumped databases')
     options = parser.parse_args(argv[1:])
-    print sys.argv
-    print options.device
     if not options.device:
         print "Illegal number of arguments"
         print usage
@@ -147,7 +134,7 @@ def run(argv):
            /    |    \|    `   \|        \|    |___
            \____|__  /_______  /_______  /|_______ \  
                    \/        \/        \/         \/
-               Android Data Extractor Lite v2.0
+               Android Data Extractor Lite v2.2 BETA
     \033[m"""
 
     print "\n"
@@ -210,7 +197,7 @@ def run(argv):
             os.mkdir(file_dir)
             dumpDBs(file_dir, os_version, device_name)
             _getGestureLock.crack(backup_dir)
-            get_location_information(backup_dir, device_name)
+            get_location_information(backup_dir, device_name, os_version)
             analyzeDBs(file_dir, os_version, xml_dir, options.device, os_version2)
             _compareHashValues.compare(backup_dir)
 
