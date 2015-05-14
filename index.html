@@ -42,6 +42,28 @@
 
 <p>Data retrieved this way is written to an XML-File by the report module in order to ease further use and depiction of the data. As the analysis module, it can be easily updated regarding possible changes in future Android versions or in the underlying database schemas. Therefore, we have created different tuple – e. g. [table, row, column] – to define the data that is exchanged between both modules. If the database design changes in the future, only the tuple have to be adapted. The report module automatically creates XML-files for each of the data types listed above. In addition, a report is created which contains all data extracted from the analyzed databases. With the help of a XSL-file the report will be graphically refurbished. All files created by ADEL are stored in a subfolder of the current project.</p>
 
+
+<h3>
+<a id="howtouse" class="anchor" href="#howtouse" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use ADEL</h3>
+
+<p>If you connect a smartphone you need a rooted and insecure kernel or a custom recovery installed on the smartphone.</p>
+
+<p>ADEL needs a predefined configuration for each device to work proper. This configuration has to be added in the following file:
+
+<code>xml/phone_configs.xml</code>
+
+As an example we added the configuration for the Samsung Galaxy S2 running Android 2.3.3, more phone configurations will follow.
+
+Example for the use of ADEL with a connected smartphone:
+
+<code>adel.py -d device -l 4</code>
+
+Example for the use of ADEL with database backups:
+
+<code>adel.py -d /home/user/backup -l 4</code>
+
+</p>
+
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/mspreitz/ADEL">ADEL</a> is maintained by <a href="https://github.com/mspreitz">mspreitz</a>.</span>
 
