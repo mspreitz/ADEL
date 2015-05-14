@@ -20,26 +20,27 @@
 
     <section class="main-content">
       <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+<a id="welcome" class="anchor" href="#welcome" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to ADEL.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>We developed a tool named ADEL which is meant as an abbreviation of “Android Data Extractor Lite”. ADEL was developed for versions 2.x of Android and is able to automatically dump selected SQLite database files from Android devices and extract the contents stored within the dumped files. Recently we have updated it to also work with Android 4.x and some more devices.</p>
 
 <h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a id="about" class="anchor" href="#about" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>ADEL makes use of the Android Software Development Kit (Android SDK) and especially the adb deamon to dump database files to the investigator's machine.</p>
 
-<h3>
-<a id="rather-drive-stick" class="anchor" href="#rather-drive-stick" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<p>To extract contents contained within a SQLite database file ADEL parses the low-level data structures. After having opened the database file that is to be parsed in read-only mode, ADEL reads the database header (first 100 bytes of the file) and extracts the values for each of the header fields. Not all, but some of the values in the header fields are necessary to be able to parse the rest of the database file. An important value is the size of the pages in the database file which is required for parsing the b-tree structures (page-wise). After having read the database header fields, ADEL parses the b-tree that contains the “sqlite_master” table for which the first page of the database always is the root page. The SQL CREATE statement and the page number of the b-tree root page are extracted for each of the database tables. Additionally, the SQL CREATE statement is further analyzed to extract the name and the data type for each column of the corresponding table. Finally the complete b-tree structure is parsed for each table, beginning at the b-tree root page that was extracted from the “sqlite_master” table. Every leaf page of the b-tree is identified by following the pointers of all of the interior pages. Finally the row contents of each table are extracted from the cells found in any leaf page that belongs to the same table b-tree.</p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>In the current development state, the following databases are forensically treated and parsed:</p>
+<ol>
+	<li>telephone and SIM-card information (e. g. IMSI and serial number)</li>
+	<li>telephone book and call lists,</li>
+	<li>calendar entries,</li>
+	<li>SMS messages,</li>
+	<li>GPS locations from different sources on the smartphone.</li>
+</ol>
+
+<p>Data retrieved this way is written to an XML-File by the report module in order to ease further use and depiction of the data. As the analysis module, it can be easily updated regarding possible changes in future Android versions or in the underlying database schemas. Therefore, we have created different tuple – e. g. [table, row, column] – to define the data that is exchanged between both modules. If the database design changes in the future, only the tuple have to be adapted. The report module automatically creates XML-files for each of the data types listed above. In addition, a report is created which contains all data extracted from the analyzed databases. With the help of a XSL-file the report will be graphically refurbished. All files created by ADEL are stored in a subfolder of the current project.</p>
 
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
