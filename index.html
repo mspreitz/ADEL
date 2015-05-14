@@ -32,25 +32,15 @@
 <p>To extract contents contained within a SQLite database file ADEL parses the low-level data structures. After having opened the database file that is to be parsed in read-only mode, ADEL reads the database header (first 100 bytes of the file) and extracts the values for each of the header fields. Not all, but some of the values in the header fields are necessary to be able to parse the rest of the database file. An important value is the size of the pages in the database file which is required for parsing the b-tree structures (page-wise). After having read the database header fields, ADEL parses the b-tree that contains the “sqlite_master” table for which the first page of the database always is the root page. The SQL CREATE statement and the page number of the b-tree root page are extracted for each of the database tables. Additionally, the SQL CREATE statement is further analyzed to extract the name and the data type for each column of the corresponding table. Finally the complete b-tree structure is parsed for each table, beginning at the b-tree root page that was extracted from the “sqlite_master” table. Every leaf page of the b-tree is identified by following the pointers of all of the interior pages. Finally the row contents of each table are extracted from the cells found in any leaf page that belongs to the same table b-tree.</p>
 
 <p>In the current development state, the following databases are forensically treated and parsed:</p>
-<ol>
+<ul>
 	<li>telephone and SIM-card information (e. g. IMSI and serial number)</li>
 	<li>telephone book and call lists,</li>
 	<li>calendar entries,</li>
 	<li>SMS messages,</li>
 	<li>GPS locations from different sources on the smartphone.</li>
-</ol>
+</ul>
 
 <p>Data retrieved this way is written to an XML-File by the report module in order to ease further use and depiction of the data. As the analysis module, it can be easily updated regarding possible changes in future Android versions or in the underlying database schemas. Therefore, we have created different tuple – e. g. [table, row, column] – to define the data that is exchanged between both modules. If the database design changes in the future, only the tuple have to be adapted. The report module automatically creates XML-files for each of the data types listed above. In addition, a report is created which contains all data extracted from the analyzed databases. With the help of a XSL-file the report will be graphically refurbished. All files created by ADEL are stored in a subfolder of the current project.</p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="https://help.github.com/pages">https://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/mspreitz/ADEL">ADEL</a> is maintained by <a href="https://github.com/mspreitz">mspreitz</a>.</span>
